@@ -1,0 +1,49 @@
+server:
+  port: 8088
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///library?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8
+    username: root
+    password: root
+  application:
+    name: TaskManagerDao-manager # 应用名称
+
+  # 兼容jsp配置
+  mvc:
+    view:
+      prefix: /WEB-INF/jsp/
+      suffix: .jsp
+
+
+#mybatis
+mybatis-plus:
+  #  config-location: classpath*:/mybatis/mybatis-config.xml
+  mapper-locations: classpath*:/mapper/*Mapper.xml
+  #实体扫描，多个package用逗号或者分号分隔
+  typeAliasesPackage: com.lzy.lsm.account.domain
+  global-config:
+    #刷新mapper 调试神器
+    refresh: true
+    db-config:
+      db-type: mysql
+      #主键类型  0:"数据库ID自增", 1:"用户输入ID",
+      #2:"全局唯一ID (数字类型唯一ID)",
+      #3:"全局唯一ID UUID";
+      id-type: AUTO
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #数据库大写下划线转换
+      capital-mode: true
+      #逻辑删除配置（下面3个配置）
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+    #自定义sql注入器
+    #    sql-injector: com.baomidou.mybatisplus.mapper.LogicSqlInjector
+    # SQL 解析缓存，开启后多租户 @SqlParser 注解生效
+    sql-parser-cache: true
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
